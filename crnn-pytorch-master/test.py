@@ -18,15 +18,23 @@ from torchvision.transforms import Compose
 
 import editdistance
 
-def test(net, data, abc, cuda, visualize, batch_size=256):
-    data_loader = DataLoader(data, batch_size=batch_size, num_workers=4, shuffle=False, collate_fn=text_collate)
+def test(net, data, abc, cuda, visualize, batch_size=1):
+    data_loader = DataLoader(data, batch_size=batch_size, num_workers=0, shuffle=False, collate_fn=text_collate)
 
     count = 0
     tp = 0
     avg_ed = 0
-    iterator = tqdm(data_loader)
-    for sample in iterator:
-        imgs = Variable(sample["img"])
+    #iterator = tqdm(data_loader)
+    #print(iterator)
+    print(data_loader)
+    print(len(data_loader))
+    print('aaaaa')
+    if 1>0:
+    #for _,sample in enumerate(data_loader):
+        #print(sample)
+        print('asdfghh')
+        #imgs = Variable(sample["img"])
+        imgs = cv2.imread('./data/digits1.png')
         if cuda:
             imgs = imgs.cuda()
         out = net(imgs, decode=True)
@@ -34,6 +42,9 @@ def test(net, data, abc, cuda, visualize, batch_size=256):
         lens = sample["seq_len"].numpy().tolist()
         pos = 0
         key = ''
+        print('-----')
+        print(out)
+        print('-----')
         for i in range(len(out)):
             gts = ''.join(abc[c] for c in gt[pos:pos+lens[i]])
             pos += lens[i]
@@ -49,9 +60,11 @@ def test(net, data, abc, cuda, visualize, batch_size=256):
                 cv2.imshow("img", img)
                 key = chr(cv2.waitKey() & 255)
                 if key == 'q':
-                    break
+                    #break
+                    _ = 0
         if key == 'q':
-            break
+            #break
+            _ = 0
         if not visualize:
             iterator.set_description("acc: {0:.4f}; avg_ed: {0:.4f}".format(tp / count, avg_ed / count))
 
@@ -79,6 +92,8 @@ def main(data_path, abc, seq_proj, backend, snapshot, input_size, gpu, visualize
     ])
     if data_path is not None:
         data = TextDataset(data_path=data_path, mode="test", transform=transform)
+        print(data)
+        print(data.get_abc())
     else:
         data = TestDataset(transform=transform, abc=abc)
     seq_proj = [int(x) for x in seq_proj.split('x')]
