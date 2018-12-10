@@ -1,9 +1,14 @@
 {
   "abc": "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-  "test": [{
-    "text":"002A872",
-    "name":"data/2.png"
-  },
+  "test": [
+    {
+      "text":"ALMOST",
+      "name":"data/3.png"
+    },
+    {
+      "text":"002A872",
+      "name":"data/2.png"
+    },
     {
       "text":"4D4E353",
       "name":"data/1.png"
