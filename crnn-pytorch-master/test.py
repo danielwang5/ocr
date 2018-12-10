@@ -56,6 +56,8 @@ def test(net, data, abc, cuda, visualize, batch_size=256):
         if not visualize:
             iterator.set_description("acc: {0:.4f}; avg_ed: {0:.4f}".format(tp / count, avg_ed / count))
 
+    import pdb; pdb.set_trace()
+
     acc = tp / count
     avg_ed = avg_ed / count
     return acc, avg_ed
