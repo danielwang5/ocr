@@ -62,7 +62,7 @@ def test(net, data, abc, cuda, visualize, batch_size=256):
 
 @click.command()
 @click.option('--data-path', type=str, default=None, help='Path to dataset')
-@click.option('--abc', type=str, default=string.digits+string.ascii_uppercase, help='Alphabet')
+@click.option('--abc', type=str, default='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', help='Alphabet')
 @click.option('--seq-proj', type=str, default="10x20", help='Projection of sequence')
 @click.option('--backend', type=str, default="resnet18", help='Backend network')
 @click.option('--snapshot', type=str, default=None, help='Pre-trained weights')
@@ -82,11 +82,11 @@ def main(data_path, abc, seq_proj, backend, snapshot, input_size, gpu, visualize
         data = TextDataset(data_path=data_path, mode="test", transform=transform)
     else:
         data = TestDataset(transform=transform, abc=abc)
-    data = torchvision.datasets.ImageFolder('./d')
+    data2 = torchvision.datasets.ImageFolder('./d')
     seq_proj = [int(x) for x in seq_proj.split('x')]
-    #net = load_model(data.get_abc(), seq_proj, backend, snapshot, cuda).eval()
-    net = load_model(string.digits+string.ascii_uppercase, seq_proj, backend, snapshot, cuda).eval()
-    acc, avg_ed = test(net, data, string.digits+string.ascii_uppercase, cuda, visualize)
+    net = load_model(data.get_abc(), seq_proj, backend, snapshot, cuda).eval()
+    #net = load_model('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', seq_proj, backend, snapshot, cuda).eval()
+    acc, avg_ed = test(net, data2, data.get_abc(), cuda, visualize)
     print("Accuracy: {}".format(acc))
     print("Edit distance: {}".format(avg_ed))
 
