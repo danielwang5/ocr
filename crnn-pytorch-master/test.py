@@ -84,6 +84,9 @@ def main(data_path, abc, seq_proj, backend, snapshot, input_size, gpu, visualize
         data = TestDataset(transform=transform, abc=abc)
     data2 = torchvision.datasets.ImageFolder('./d')
     seq_proj = [int(x) for x in seq_proj.split('x')]
+    
+    #import pdb; pdb.set_trace()
+    
     net = load_model(data.get_abc(), seq_proj, backend, snapshot, cuda).eval()
     #net = load_model('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', seq_proj, backend, snapshot, cuda).eval()
     acc, avg_ed = test(net, data2, data.get_abc(), cuda, visualize)
