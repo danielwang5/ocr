@@ -65,3 +65,11 @@ class TestDataset(Dataset):
         if self.transform:
             sample = self.transform(sample)
         return sample
+
+if __name__ == '__main__':
+    td = TestDataset(abc='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    sample = td.get_sample()
+    #import pdb; pdb.set_trace()
+    #cv2.imwrite("img/{}.png".format(sample[1]), sample[0])
+    cv2.imshow("im", sample[0])
+    cv2.waitKey(0)

@@ -2,6 +2,10 @@
   "abc": "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
   "test": [
     {
+      "text":"MLZYJTGV",
+      "name":"data/4.png"
+    },
+    {
       "text":"ALMOST",
       "name":"data/3.png"
     },
