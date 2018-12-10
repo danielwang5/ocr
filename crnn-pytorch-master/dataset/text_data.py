@@ -21,8 +21,8 @@ class TextDataset(Dataset):
         self.mode = mode
 
     def __len__(self):
-        if self.mode == "test":
-            return int(len(self.config[self.mode]) * 0.01)
+        #if self.mode == "test":
+        #    return int(len(self.config[self.mode]) * 0.01)
         return len(self.config[self.mode])
 
     def __getitem__(self, idx):
