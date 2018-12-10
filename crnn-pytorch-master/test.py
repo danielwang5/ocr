@@ -15,7 +15,7 @@ from dataset.collate_fn import text_collate
 from dataset.data_transform import Resize, Rotation, Translation, Scale
 from models.model_loader import load_model
 from torchvision.transforms import Compose
-
+import torchvision
 import editdistance
 
 def test(net, data, abc, cuda, visualize, batch_size=256):
@@ -30,6 +30,7 @@ def test(net, data, abc, cuda, visualize, batch_size=256):
         if cuda:
             imgs = imgs.cuda()
         out = net(imgs, decode=True)
+        print(out)
         gt = (sample["seq"].numpy() - 1).tolist()
         lens = sample["seq_len"].numpy().tolist()
         pos = 0
@@ -81,9 +82,11 @@ def main(data_path, abc, seq_proj, backend, snapshot, input_size, gpu, visualize
         data = TextDataset(data_path=data_path, mode="test", transform=transform)
     else:
         data = TestDataset(transform=transform, abc=abc)
+    data = torchvision.datasets.ImageFolder('./d')
     seq_proj = [int(x) for x in seq_proj.split('x')]
-    net = load_model(data.get_abc(), seq_proj, backend, snapshot, cuda).eval()
-    acc, avg_ed = test(net, data, data.get_abc(), cuda, visualize)
+    #net = load_model(data.get_abc(), seq_proj, backend, snapshot, cuda).eval()
+    net = load_model(string.digits+string.ascii_uppercase, seq_proj, backend, snapshot, cuda).eval()
+    acc, avg_ed = test(net, data, string.digits+string.ascii_uppercase, cuda, visualize)
     print("Accuracy: {}".format(acc))
     print("Edit distance: {}".format(avg_ed))
 
