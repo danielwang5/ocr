@@ -1,9 +1,9 @@
 {
-"abc": "0123456789abc",
-"test": [
-{
-"text": "aaa",
-"name": "digits1.png"
-}
-]
+	"abc": "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+	"test": [
+		{
+			"text": "aaa",
+			"name": "digits1.png"
+		}
+	]
 }
